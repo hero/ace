@@ -22,8 +22,10 @@ var PrqlHighlightRules = function() {
         "int16",
         "int32",
         "int64",
+        "int128",
         "float",
         "text",
+        "timestamp",
         "set"].join("|");
 
     var keywordMapper = this.createKeywordMapper({
@@ -32,10 +34,11 @@ var PrqlHighlightRules = function() {
        "keyword": "let|into|case|prql|type|module|internal",
        "storage.type": "let|func",
        "support.function": builtinFunctions,
-       "support.type": builtinTypes
+       "support.type": builtinTypes,
+       "variable.language": "date|math"
     }, "identifier");
     
-    var escapeRe = /\\(\d+|['"\\&bfnrt]|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2})/;
+    var escapeRe = /\\(\d+|['"\\&bfnrt]|u\{[0-9a-fA-F]{1,6}\}|x[0-9a-fA-F]{2})/;
     var identifierRe = /[A-Za-z_][a-z_A-Z0-9]/.source;
     var numRe = /(?:\d\d*(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+\b)?/.source;
     var bidi = "[\\u202A\\u202B\\u202D\\u202E\\u2066\\u2067\\u2068\\u202C\\u2069]";
